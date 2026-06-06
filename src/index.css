@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-elegant-bg: #0B0F1A;
+  --color-elegant-sidebar: #0D121F;
+  --color-elegant-card: #161B22;
+}
+
+@layer utilities {
+  @keyframes pulseSubtle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(0.995); }
+  }
+
+  .animate-pulse-subtle {
+    animation: pulseSubtle 4s infinite ease-in-out;
+  }
+}
+

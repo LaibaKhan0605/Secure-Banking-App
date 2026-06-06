@@ -1,0 +1,6 @@
+{
+  "name": "Secure Banking API Dashboard",
+  "description": "A production-grade cyber-security monitoring dashboard for a simulated high-security banking API, demonstrating active threat detection, intrusion logging, rate-limiting, and modern hardened defenses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

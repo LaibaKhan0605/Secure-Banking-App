@@ -1,0 +1,48 @@
+# docker-compose.yml - Multi-Container Secure Networking Orchestration
+# Demonstrates isolated database-to-application communication boundaries
+
+version: '3.8'
+
+services:
+  # 1. Core Secure Banking Dashboard Web Application Service
+  dashboard_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: secure_banking_app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://db_admin:PassWordHardened2026@secure_mongo_db:27017/secure_banking?authSource=admin
+      - JWT_SECRET=ProductionSecureBankingSecretKeyCaps2026!
+    depends_on:
+      - db_service
+    networks:
+      - banking_secure_network
+    restart: unless-stopped
+
+  # 2. Hardened MongoDB Service (Shielded from public ingress ports!)
+  db_service:
+    image: mongo:6.0-alpine
+    container_name: secure_mongo_db
+    # Notice: No external ports are mapped!
+    # By omitting standard "ports" declarations, MongoDB is completely shielded from public interface scans.
+    # It remains accessible ONLY to services sharing our private docker bridge network line.
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=db_admin
+      - MONGO_INITDB_ROOT_PASSWORD=PassWordHardened2026
+      - MONGO_INITDB_DATABASE=secure_banking
+    volumes:
+      - mongo_secure_data:/data/db
+    networks:
+      - banking_secure_network
+    restart: unless-stopped
+
+networks:
+  banking_secure_network:
+    driver: bridge
+
+volumes:
+  mongo_secure_data:
+    driver: local
